@@ -1,5 +1,4 @@
-import { appendFile } from 'node:fs/promises'
-import { join } from 'node:path'
+import { getStore } from '@netlify/blobs'
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event)
@@ -20,9 +19,9 @@ export default defineEventHandler(async (event) => {
     message: body.message || ''
   }
 
-  // Store RSVPs in a JSON lines file
-  const filePath = join(process.cwd(), 'rsvps.jsonl')
-  await appendFile(filePath, JSON.stringify(entry) + '\n')
+  const store = getStore('rsvps')
+  const key = `rsvp-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`
+  await store.set(key, JSON.stringify(entry))
 
   return { success: true, message: 'RSVP received!' }
 })
