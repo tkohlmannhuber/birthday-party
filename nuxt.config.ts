@@ -8,6 +8,10 @@ export default defineNuxtConfig({
 
   modules: ['@vite-pwa/nuxt'],
 
+  nitro: {
+    preset: 'netlify'
+  },
+
   css: ['~/assets/css/main.css'],
 
   vite: {

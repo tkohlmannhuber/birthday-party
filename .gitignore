@@ -13,3 +13,6 @@ rsvps.jsonl
 # Misc
 .DS_Store
 *.sw?
+
+# Local Netlify folder
+.netlify
